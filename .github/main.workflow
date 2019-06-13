@@ -5,12 +5,12 @@ workflow "Pipeline" {
 
 action "I lint my code" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
-  runs = "npm run lint"
+  runs = "echo LINTY FRESH"
 }
 
 action "I test my code" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
-  runs = "npm run test"
+  runs = "echo TESTED GREAT"
 }
 
 action "I deploy my code" {
