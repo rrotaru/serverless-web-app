@@ -24,8 +24,6 @@ app.listen(port, () => {
 })
 
 
-
-
 function callLambdaAPI()
 {
     var options= {
