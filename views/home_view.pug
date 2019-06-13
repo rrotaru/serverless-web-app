@@ -1,0 +1,33 @@
+doctype html
+head
+  title The Hartford - BuckOverflow
+  meta(name='viewport', content='width=device-width, initial-scale=1')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css')
+  script(defer, src='https://use.fontawesome.com/releases/v5.3.1/js/all.js')
+body
+    section(class='section hero')
+      div(class='hero-body')
+        div(class='container')
+          h1(class='title') BuckOverflow
+    section(class='section')
+      div(class='container')
+        div(class='tile is-vertical is-ancestor')
+          if questions_list.length > 0
+            each question, index in questions_list
+              div(class='tile is-parent is-vertical')
+                article(class='tile is-child notification is-info')
+                  p(class='title')= question.title.S
+                  p= question.labels.S
+          else
+            span No questions yet!
+
+    section(class='section')
+      div(class='container')
+        form(method='POST', action='/submit')
+          div(class='field')
+            label(class='label') Submit a question below
+            div(class='control')
+              input(class='input', type='text', placeholder='Ask anything')
+          div(class='field')
+            div(class='control')
+              button(class='button is-link') Submit
