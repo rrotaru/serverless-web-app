@@ -3,7 +3,7 @@ var request = require('request-promise');
 
 var app = express();
 
-const port = 8080
+const port = 80
 app.get('/',(requests,response) => {
             //callLambdaAPI();
             var options= {
