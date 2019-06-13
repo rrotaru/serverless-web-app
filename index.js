@@ -1,38 +1,32 @@
-const express = require('express');
-var request = require('request-promise');
-
-var app = express();
-
-const port = 80
-app.get('/',(requests,response) => {
-            //callLambdaAPI();
-            var options= {
-                insecure: true,
-                uri: 'https://elq9dooyng.execute-api.us-east-1.amazonaws.com/test/test  ',
-                rejectUnauthorized: false
-            }
-            request(options)
-                        .then(function (res) {
-                             console.log(res);
-                             response.send('CODE A THON!' + JSON.parse(res).body);
-            });
-                
-})
-
-app.listen(port, () => {
-    console.log("running on port " + port);     
-})
-
-
-function callLambdaAPI()
-{
-    var options= {
-        insecure: true,
-        uri: 'https://elq9dooyng.execute-api.us-east-1.amazonaws.com/test/test  ',
-        rejectUnauthorized: false
+const AWS = require('aws-sdk');
+const dynamodb = new AWS.DynamoDB();
+exports.handler = (event, context, callback) => {
+//https://badnomyand.execute-api.us-east-1.amazonaws.com/Prod
+console.log(JSON.stringify(event))
+var params = {
+  ExpressionAttributeValues: {
+   ":a": {
+     S: "Rob"
     }
-    request(options)
-                .then(function (res) {
-                     console.log(res);
-    });
-}
+  }, 
+  FilterExpression: "labels = :a",
+  TableName: "paastrami-articles"
+ };
+ dynamodb.scan(params, function(err, data) {
+   if (err) 
+   {
+        const response = {
+            status: 400,
+            message:data
+        }
+        console.log("Error while getting data from Dynamo db table " + err);
+        callback(err,null);
+    }
+   else     
+   {
+       console.log("succesful retrieval of the data" + data);           // successful response
+       callback(null,data);
+   }
+ });
+    
+};
