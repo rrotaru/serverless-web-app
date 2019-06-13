@@ -1,4 +1,4 @@
-workflow "Pretest" {
+workflow "Pipeline" {
   on = "push"
   resolves = ["I lint my code", "I test my code", "I deploy my code"]
 }
