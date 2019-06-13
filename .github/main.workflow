@@ -1,4 +1,4 @@
-workflow "New workflow" {
+workflow "Pretest" {
   on = "push"
   resolves = ["I lint my code", "I test my code", "I deploy my code"]
 }
@@ -14,6 +14,7 @@ action "I test my code" {
 }
 
 action "I deploy my code" {
+  needs = ["I lint my code", "I test my code"]
   uses = "actions/aws/cli@efb074ae4510f2d12c7801e4461b65bf5e8317e6"
   runs = "aws deploy"
 }
