@@ -4,9 +4,19 @@ var request = require('request-promise');
 var app = express();
 
 const port = 8080
-app.get('/',(req,res) => {
-            callLambdaAPI();
-            res.send('CODE A THON!');    
+app.get('/',(requests,response) => {
+            //callLambdaAPI();
+            var options= {
+                insecure: true,
+                uri: 'https://elq9dooyng.execute-api.us-east-1.amazonaws.com/test/test  ',
+                rejectUnauthorized: false
+            }
+            request(options)
+                        .then(function (res) {
+                             console.log(res);
+                             response.send('CODE A THON!' + JSON.parse(res).body);
+            });
+                
 })
 
 app.listen(port, () => {
@@ -20,11 +30,11 @@ function callLambdaAPI()
 {
     var options= {
         insecure: true,
-        uri: 'https://elq9dooyng.execute-api.us-east-1.amazonaws.com/test/test',
+        uri: 'https://elq9dooyng.execute-api.us-east-1.amazonaws.com/test/test  ',
         rejectUnauthorized: false
     }
     request(options)
                 .then(function (res) {
                      console.log(res);
-            });
+    });
 }
