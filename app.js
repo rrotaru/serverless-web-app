@@ -26,7 +26,7 @@ app.get('/',(requests,response) => {
   request(options)
     .then(function (res) {
      console.log('---------------')
-     console.log(JSON.parse(res).Items)
+     console.log(JSON.parse(res))
      response.render('home_view', {questions_list: JSON.parse(res)});
      //response.end('ok');
   });
