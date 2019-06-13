@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./bin/www",
+    "start": "PORT=8081 node ./bin/www",
     "start-dev": "PORT=8080 nodemon --inspect ./bin/www"
   },
   "repository": {
@@ -25,6 +25,7 @@
     "request-promise": "^4.2.4",
     "pug": "^2.0.0-rc.4",
     "dotenv": "^5.0.1",
-    "flash": "^1.1.0"
+    "flash": "^1.1.0",
+    "cookie-session": "^2.0.0-beta.3"
   }
 }

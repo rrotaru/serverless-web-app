@@ -2,13 +2,13 @@
 require('dotenv').config();
 
 const express = require('express');
+var session = require('cookie-session');
 var request = require('request-promise');
 var bodyparser = require('body-parser');
 var app = express();
 var router = express.Router();
 
-const port = 80
-
+app.use(session({name: 'robs_cookie', keys: ['notasecret'], maxAge: 24 * 60 * 60 * 1000}));
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(express.static('./public'));
 
@@ -18,21 +18,18 @@ app.set('view engine', 'pug');
 app.use(require('flash')());
 
 app.get('/',(requests,response) => {
-            var options= {
-                insecure: true,
-                uri: 'https://elq9dooyng.execute-api.us-east-1.amazonaws.com/test/test  ',
-                rejectUnauthorized: false
-            }
-            request(options)
-                        .then(function (res) {
-                             console.log(res);
-                             response.send('CODE A THON!' + JSON.parse(res).body);
-            });
-                
-})
-
-app.listen(port, () => {
-    console.log("running on port " + port);     
+  var options= {
+    insecure: true,
+    uri: 'https://elq9dooyng.execute-api.us-east-1.amazonaws.com/test/test  ',
+    rejectUnauthorized: false
+  }
+  request(options)
+    .then(function (res) {
+     console.log('---------------')
+     console.log(JSON.parse(res).Items)
+     response.render('home_view', {questions_list: JSON.parse(res)});
+     //response.end('ok');
+  });
 })
 
 // Default request handler
