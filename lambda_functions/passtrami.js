@@ -6,7 +6,7 @@ var dynamodb = new AWS.DynamoDB();
 exports.handler = async (event) => {
     // TODO implement
     getDataFromDynamoDB().then(function(done) {
-        console.log("dynamo");
+        console.log(done);
     })
     const response = {
         statusCode: 200,
